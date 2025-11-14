@@ -63,12 +63,11 @@
                 align-items: center;
                 text-align: center;
             }
-            /* Adiciona o efeito hover para os value-cards em telas menores */
-            .value-card:hover {
-                background-color: #f0f0f0; /* Cor de fundo ao passar o mouse/tocar */
-                transform: translateY(-5px); /* Efeito de elevação */
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada */
-                transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            /* Ajusta o efeito hover do service-card para mobile */
+            .service-card:hover {
+                background-color: #f9f9f9; /* Cor de fundo ao passar o dedo */
+                opacity: 1; /* Garante que não fique transparente */
+                transform: translateY(-5px); /* Mantém o efeito de elevação */
             }
         }
     </style>
