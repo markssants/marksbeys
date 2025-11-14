@@ -8,6 +8,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
     <link rel="icon" href="img/logo.png" type="image/png">
     <style>
+        /* Inverte a ordem da seção Hero em telas maiores (desktop) */
+        @media (min-width: 769px) {
+            .hero-container {
+                display: flex; /* Garante que o flexbox está ativo */
+                flex-direction: row-reverse;
+            }
+        }
         /* Reordena os elementos da seção Hero em telas menores (mobile) */
         @media (max-width: 768px) {
             .hero-container {
