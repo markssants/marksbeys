@@ -9,31 +9,64 @@ document.addEventListener('DOMContentLoaded', () => {
             navMenu.classList.toggle('active');
         });
 
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-        }));
-    }
-
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const target = document.querySelector(targetId);
-            if (target) {
-                const headerOffset = 80;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
+        // Close mobile menu when a link is clicked
+        navMenu.addEventListener('click', (e) => {
+            if (e.target.classList.contains('nav-link')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
             }
         });
-    });
+    }
+
+    // Função de rolagem suave customizada para o efeito "parallax"
+    const smoothScrollTo = (targetPosition, duration) => {
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        let startTime = null;
+
+        // Easing function para aceleração e desaceleração
+        const easeInOutQuad = (t, b, c, d) => {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t + b;
+            t--;
+            return -c / 2 * (t * (t - 2) - 1) + b;
+        };
+
+        const animation = (currentTime) => {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+            window.scrollTo(0, run);
+            if (timeElapsed < duration) requestAnimationFrame(animation);
+        };
+
+        requestAnimationFrame(animation);
+    };
+
+    // Smooth scrolling for navigation links
+    const handleSmoothScroll = (e) => {
+        // Verifica se o link clicado é um link de âncora
+        const link = e.target.closest('a[href^="#"]');
+        if (!link) return;
+
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        // Garante que não estamos tentando rolar para um link vazio como "#"
+        if (targetId.length <= 1) return;
+
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            const headerOffset = 80; // Altura do seu cabeçalho
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            // Usa a nova função de rolagem suave com duração de 1000ms (1 segundo)
+            smoothScrollTo(offsetPosition, 1000);
+        }
+    };
+
+    // Adiciona o ouvinte de clique ao corpo do documento para capturar todos os cliques de navegação
+    document.body.addEventListener('click', handleSmoothScroll);
 
     // Active link on scroll
     const sections = document.querySelectorAll('section[id]');
