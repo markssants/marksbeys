@@ -397,5 +397,57 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const serviceCards = document.querySelectorAll('.service-card');
+            const body = document.getElementById('page-body');
+
+            // Função para remover o estado ativo de todos os cards
+            function resetServiceCards() {
+                serviceCards.forEach(card => {
+                    if (card.classList.contains('mobile-hover')) {
+                        card.classList.remove('mobile-hover');
+                        const originalContent = card.querySelector('.original-text');
+                        const hoverText = card.querySelector('p:not(.original-text)');
+                        if (originalContent && hoverText) {
+                            card.removeChild(hoverText);
+                            originalContent.style.display = 'block';
+                        }
+                    }
+                });
+            }
+
+            serviceCards.forEach(card => {
+                const originalP = card.querySelector('p');
+                originalP.classList.add('original-text');
+
+                card.addEventListener('click', function (event) {
+                    event.stopPropagation(); // Impede que o clique no card feche ele mesmo
+
+                    const isHovering = this.classList.contains('mobile-hover');
+
+                    // Primeiro, reseta todos os outros cards
+                    resetServiceCards();
+
+                    // Se o card clicado não estava ativo, ativa-o
+                    if (!isHovering) {
+                        this.classList.add('mobile-hover');
+                        const hoverText = this.dataset.hoverText;
+                        const originalContent = this.querySelector('.original-text');
+                        originalContent.style.display = 'none';
+
+                        const newP = document.createElement('p');
+                        newP.textContent = hoverText;
+                        this.appendChild(newP);
+                    }
+                });
+            });
+
+            // Adiciona um listener no body para fechar os cards ao tocar fora
+            body.addEventListener('click', function () {
+                resetServiceCards();
+            });
+        });
+    </script>
 </body>
 </html>
