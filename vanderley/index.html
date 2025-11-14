@@ -11,7 +11,46 @@
         /* Reordena os elementos da seção Hero em telas menores (mobile) */
         @media (max-width: 768px) {
             .hero-container {
-                flex-direction: column-reverse;
+                flex-direction: column;
+                text-align: center;
+            }
+            /* Ajusta os botões da seção Hero para ficarem centralizados e com largura automática */
+            .hero-buttons {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem; /* Adiciona um espaço entre os botões */
+            }
+            .hero-buttons .btn {
+                width: fit-content; /* Faz o botão se ajustar ao conteúdo */
+            }
+            /* Ajusta a seção de contato para layout de coluna em telas menores */
+            .contact-info {
+                display: flex;
+                flex-direction: column !important;
+                flex-wrap: nowrap !important;
+                align-items: stretch !important;
+                width: 100%;
+                gap: 1rem;
+            }
+            .contact-link {
+                display: block !important;
+            }
+            .contact-item {
+                width: 100% !important;
+                display: flex;
+                flex-direction: column;
+                align-items: center !important;
+                justify-content: center !important;
+                padding: 1.5rem 1rem;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            .contact-details {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
                 text-align: center;
             }
         }
@@ -60,6 +99,9 @@
     <!-- Hero Section -->
     <section id="home" class="hero" style="padding-top: 130px;">
         <div class="hero-container">
+            <div class="hero-image">
+                <img src="img/vanderley-photo.jpg" alt="Dr. Vanderley Pereira" class="hero-photo">
+            </div>
             <div class="hero-content">
                 <h1 class="hero-title">Dr. Vanderley Pereira</h1>
                 <p class="hero-subtitle job-title">Advocacia com Experiência, Credibilidade e Transparência</p>
@@ -75,9 +117,6 @@
                     <a href="#contact" class="btn btn-primary btn-icon"><img src="img/tele.png" alt="Ícone de telefone">Agendar Consulta</a>
                     <a href="#about" class="btn btn-secondary btn-icon"><img src="img/perso.png" alt="Ícone de pessoa">Conheça Mais</a>
                 </div>
-            </div>
-            <div class="hero-image">
-                <img src="img/vanderley-photo.jpg" alt="Dr. Vanderley Pereira" class="hero-photo">
             </div>
         </div>
     </section>
